@@ -25,7 +25,7 @@
 
 ### 1.2 今回は解決しないこと
 
-1. 入荷日の予測や確約
+1. 入荷日の予測や確約。
 2. 通知登録者向けの在庫取り置き
 3. 店舗在庫とオンライン在庫の横断検索
 4. 値下げ通知や類似商品の自動推薦
@@ -137,6 +137,16 @@ async function requestRestockNotification(input: {
 ```
 
 `upsertPending` とキューへの追加の間で障害が起きる可能性があります。初回実装では、未送信の確認メールを定期的に拾う補償ジョブを用意します。将来的にはOutboxパターンを導入し、データ更新とイベント発行を同一トランザクションで扱うことを検討します。
+
+### 5.1 横スクロールの確認
+
+次のコードには、意図的に長い行を含めています。プレビューでは途中で折り返さず、コードブロック下部の横スクロールバーを使って右端まで確認できます。
+
+```ts
+const notificationRequest = await requestRestockNotification({ productId: "01JBY8FQ7A7D4M5C0K8QTQ1Y4R", email: "reader@example.com", requestedAt: new Date().toISOString(), source: "sold-out-product-detail", locale: "ja-JP", campaign: "restock-notification-initial-release" });
+
+console.log(notificationRequest);
+```
 
 ## 6. 通知条件と例外
 
